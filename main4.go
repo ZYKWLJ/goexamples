@@ -37,12 +37,22 @@ func (c circle) perimeter() float64 {
 	return 2 * math.Pi * float64(c.radius*c.radius)
 }
 
+// 接口和结构体嵌入成为更复杂的接口
+type nameAndShape struct {
+	geometry
+	name string
+}
+
 // 测试接口专用的文件
 func main() {
 	r := newr(4, 3)
 	c := newc(4)
 	fmt.Println(two(r))
 	fmt.Println(two(c))
+	fmt.Println("结构体和接口嵌入，看起来就像没有名字的字段一样")
+	NASr := nameAndShape{r, "这是矩形"}
+	NASc := nameAndShape{c, "这是圆形"}
+	fmt.Println(NASr, NASc)
 }
 
 func two(s geometry) (float64, float64) {
