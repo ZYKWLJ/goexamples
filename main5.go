@@ -5,11 +5,13 @@ import (
 	"math"
 )
 
+// 链表结构体定义
 type listNode[K comparable] struct {
 	next *listNode[K]
 	val  K
 }
 
+// 初始化链表
 func newList[K comparable](val K) *listNode[K] {
 	return &listNode[K]{
 		next: nil,
