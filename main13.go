@@ -21,6 +21,7 @@ func main() {
 		str := fmt.Sprintf("这是第2个协程写来的数据，用时 %fms", float64(time.Since(start).Milliseconds()))
 		b <- str
 	}()
+	now1 := time.Now()
 	for i := 0; i < 2; i++ {
 		select {
 		case str := <-a:
@@ -32,4 +33,5 @@ func main() {
 
 		}
 	}
+	fmt.Println("整个过程耗时", float64(time.Since(now1).Milliseconds()), "ms")
 }
