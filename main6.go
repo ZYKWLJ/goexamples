@@ -14,11 +14,16 @@ func testError(arg int) (int, error) {
 	}
 
 }
-func Error(arg int) string {
-	if arg > 10 {
-		return fmt.Sprintf("arg greater than 10 is error\n")
+
+type argError struct {
+	arg int
+}
+
+func (arg *argError) Error() string {
+	if arg.arg > 10 {
+		return fmt.Sprintf("%d, arg greater than 10 is error\n", arg.arg)
 	} else {
-		return fmt.Sprintf("arg less  than 10 is valid\n")
+		return fmt.Sprintf("%d, arg less  than 10 is valid\n", arg.arg)
 	}
 }
 
@@ -29,6 +34,6 @@ func main() {
 	var a, b = testError(-1)
 	fmt.Println(a, b)
 	fmt.Println("使用自定义的错误机制")
-	var c, d = Error(100), Error(9)
-	fmt.Println(c, d)
+	var c, d = argError{100}, argError{9}
+	fmt.Println(c.Error(), d.Error())
 }
